@@ -16,6 +16,11 @@ export class FlightSearchComponent implements OnInit {
   flights: Array<Flight> = [];
   selectedFlight: Flight;
 
+  basket: object = {
+    "3": true,
+    "4": false,
+    "5": true
+  }
 
   constructor(private flightService: FlightService) {
     // this.http = http;
