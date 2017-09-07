@@ -1,27 +1,34 @@
 <h1>Flight Search</h1>
 
 <div class="row card">
-  <form>
+  <form [formGroup]="form">
 
     <div class="form-group">
       <label>From:</label>
       <input
-        [(ngModel)]="from"
-        class="form-control"
-        name="from">
+        formControlName="from"
+        class="form-control">
+      <div *ngIf="!form.controls['from'].valid">
+        ... Error ...
+      </div>
+      <div *ngIf="form.controls['from'].hasError('required')">
+        ... Requied ...
+      </div>
+      <div *ngIf="!form.controls['from'].valid">
+        <pre>{{ form.controls['from'].errors | json }}</pre>
+      </div>
 
     </div>
     <div class="form-group">
       <label>To:</label>
       <input
-        [(ngModel)]="to"
-        name="to"
+        formControlName="to"
         class="form-control">
     </div>
     <div class="form-group">
       <button
         (click)="search()"
-        [disabled]="!from || !to"
+        [disabled]="form.invalid"
         class="btn btn-default">Search</button>
     </div>
   </form>

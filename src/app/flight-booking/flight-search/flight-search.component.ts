@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Flight } from '../../entities/flight';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FlightService } from '../flight.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'flight-search',
@@ -11,10 +12,9 @@ import { FlightService } from '../flight.service';
 })
 export class FlightSearchComponent implements OnInit {
 
-  from: string;
-  to: string;
   flights: Array<Flight> = [];
   selectedFlight: Flight;
+  form: FormGroup;
 
   basket: object = {
     "3": true,
@@ -22,14 +22,43 @@ export class FlightSearchComponent implements OnInit {
     "5": true
   }
 
-  constructor(private flightService: FlightService) {
-    // this.http = http;
+  constructor(
+    private flightService: FlightService,
+    private fb: FormBuilder
+  )
+  {
+
+    this.form = fb.group({
+      from: [
+        'Graz',
+        [
+          Validators.required,
+          Validators.minLength(3)
+        ]
+      ],
+      to: ['Hamburg']
+    });
+
+    // this.form.valid;
+    // this.form.dirty;
+    // this.form.controls['from'].valid
+    // this.form.controls['from'].value;
+    // this.form.value; --> { from: 'Graz, to: 'Hamburg' }
+
+    this.form.valueChanges.subscribe(v => {
+      console.debug('form changed', v);
+    });
+
+    this.form.controls['from'].valueChanges.subscribe(v => {
+      console.debug('field from changed', v);
+    });
+
   }
 
   search(): void {
 
     this.flightService
-        .find(this.from, this.to)
+        .find(this.form.value.from, this.form.value.to)
         .subscribe(
           flights => {
             this.flights = flights;
