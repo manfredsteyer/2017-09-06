@@ -6,16 +6,17 @@ import { AppComponent } from './app.component';
 import { FlightSearchComponent } from './flight-booking/flight-search/flight-search.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FlightService } from './flight-booking/flight.service';
+import { FlightBookingModule } from './flight-booking/flight-booking.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlightBookingModule
   ],
   declarations: [
-    AppComponent,
-    FlightSearchComponent
+    AppComponent
   ],
   providers: [
     // { provide: FlightService, useClass: FlightService }
