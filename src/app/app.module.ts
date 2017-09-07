@@ -7,6 +7,7 @@ import { FlightSearchComponent } from './flight-booking/flight-search/flight-sea
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FlightService } from './flight-booking/flight.service';
 import { FlightBookingModule } from './flight-booking/flight-booking.module';
+import { BASE_URL } from './app.tokens';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { FlightBookingModule } from './flight-booking/flight-booking.module';
     AppComponent
   ],
   providers: [
+    {provide: BASE_URL, useValue: 'http://www.angular.at/api'}
     // { provide: FlightService, useClass: FlightService }
     // FlightService
   ],
