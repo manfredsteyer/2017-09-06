@@ -9,11 +9,11 @@ import { CityValidator } from '../../shared/validation/city.validator';
   selector: 'flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  providers: [FlightService]
+  providers: []
 })
 export class FlightSearchComponent implements OnInit {
 
-  flights: Array<Flight> = [];
+  // flights: Array<Flight> = [];
   selectedFlight: Flight;
   form: FormGroup;
 
@@ -64,20 +64,14 @@ export class FlightSearchComponent implements OnInit {
 
   }
 
+  get flights() { // flights.length, flights[0],
+    return this.flightService.flights;
+  }
+
   search(): void {
 
     if (!this.form.value.from || !this.form.value.to) return;
-
-    this.flightService
-        .find(this.form.value.from, this.form.value.to)
-        .subscribe(
-          flights => {
-            this.flights = flights;
-          },
-          err => {
-            console.error('Fehler beim Laden', err);
-          }
-        );
+    this.flightService.load(this.form.value.from, this.form.value.to);
 
   }
 

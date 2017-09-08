@@ -27,4 +27,30 @@ export class FlightService {
 
     return this.http.get<Flight[]>(url, {params, headers});
   }
+
+  flights: Flight[] = [];
+
+  load(from: string, to: string): void {
+    let url = this.baseUrl + '/flight';
+
+    let params = new HttpParams()
+      .set('from', from)
+      .set('to', to);
+
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json');
+
+    this
+      .http
+      .get<Flight[]>(url, {params, headers})
+      .subscribe(
+        flights => {
+          this.flights = flights;
+        },
+        err => console.error('Fehler beim Laden', err)
+      )
+
+  }
+
+
 }
