@@ -25,7 +25,8 @@ export class FlightSearchComponent implements OnInit {
 
   constructor(
     private flightService: FlightService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient
   )
   {
 
@@ -37,10 +38,15 @@ export class FlightSearchComponent implements OnInit {
           Validators.minLength(3),
           CityValidator.validate,
           CityValidator.validateWithParams(['Graz', 'Hamburg', 'Nürnberg', 'Berlin'])
+        ],
+        [
+          CityValidator.validateAsync(http)
         ]
       ],
       to: ['Hamburg']
     });
+
+    this.form.validator = Validators.compose([CityValidator.validateForm]);
 
     // this.form.valid;
     // this.form.dirty;

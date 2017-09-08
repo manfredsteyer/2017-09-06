@@ -3,6 +3,14 @@
 <div class="row card">
   <form [formGroup]="form">
 
+    <div *ngIf="!form.valid">
+      <pre>{{form.errors | json}}</pre>
+    </div>
+    <div *ngIf="form.hasError('roundTrip')">
+      <div>Keine Rundflüge erlaubt!</div>
+    </div>
+
+
     <div class="form-group">
       <label>From:</label>
       <input
@@ -17,6 +25,14 @@
       <div *ngIf="!form.controls['from'].valid">
         <pre>{{ form.controls['from'].errors | json }}</pre>
       </div>
+
+      <div *ngIf="form.controls['from'].pending">
+        <marquee direction="down">
+          Validierung wird ausgeführt!
+        </marquee>
+      </div>
+
+
 
     </div>
     <div class="form-group">

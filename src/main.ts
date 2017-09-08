@@ -6,6 +6,8 @@ import { environment } from './environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/catch';
 
 if (environment.production) {
   enableProdMode();
