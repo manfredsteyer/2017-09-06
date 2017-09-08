@@ -3,6 +3,7 @@ import { Flight } from '../../entities/flight';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FlightService } from '../flight.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CityValidator } from '../../shared/validation/city.validator';
 
 @Component({
   selector: 'flight-search',
@@ -33,7 +34,9 @@ export class FlightSearchComponent implements OnInit {
         'Graz',
         [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
+          CityValidator.validate,
+          CityValidator.validateWithParams(['Graz', 'Hamburg', 'Nürnberg', 'Berlin'])
         ]
       ],
       to: ['Hamburg']
