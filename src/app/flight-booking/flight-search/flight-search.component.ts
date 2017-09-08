@@ -66,6 +66,8 @@ export class FlightSearchComponent implements OnInit {
 
   search(): void {
 
+    if (!this.form.value.from || !this.form.value.to) return;
+
     this.flightService
         .find(this.form.value.from, this.form.value.to)
         .subscribe(
